@@ -3,28 +3,6 @@ require 'warden'
 
 set :database, "sqlite3:///blog.db"
 
-use RACK::Session::Cookie, secret: "IdoNotHaveAnySecret"
-use RACK::Flash, accessorize: [:error, :success]
-
-user Warden::Manager do |config|
-	# serialize user to session
-	config.serialize_into_session{|user| user.id}
-
-	#serialize user from session
-	config.serialize_from_session{|id| User.get(id) }
-
-	# configuring strategies
-	config.scope_defaults :default,
-		strategies: [:password],
-		action: 	'auth/unathenticated'
-	config.failure_app = self
-end
-
-Warden::Strategies.add(:)		 	 
-
-
-
-
 
 # Models and Their Definitions
 class Post < ActiveRecord::Base
@@ -32,6 +10,8 @@ end
 
 class Page < ActiveRecord::Base
 end	
+
+
 
 			
 # Routes
