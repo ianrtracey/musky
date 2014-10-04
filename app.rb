@@ -1,22 +1,22 @@
 require "sinatra"
-require "sinatra/activerecord"
-require 'sinatra_warden'
+require 'warden'
 
 set :database, "sqlite3:///blog.db"
 
-class Application < Sinatra::Base
-	register Sinatra::Warden
+use RACK::Session::Cookie, secret: "IdoNotHaveAnySecret"
+use RACK::Flash, accessorize: [:error, :success]
 
-	get '/admin' do
-		authorize!('/login') # require session, redirect to login if not authorized
-		haml :admin
-	end	
+user Warden::Manager do |config|
+	# serialize user to session
+	config.serialize_into_session{|user| user.id}
 
-	get 'dashboard' do
-		authorize! # require session, redirect to login if not authorized
-		haml :dashboard
-	end
-end		 
+	#serialize user from session
+	config.serialize_from_session{|id| User.get(id) }
+
+	# configuring strategies
+	config.scope_defaults :default,
+		strategies: [:password],
+			 
 
 
 
