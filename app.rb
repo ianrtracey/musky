@@ -1,7 +1,26 @@
 require "sinatra"
 require "sinatra/activerecord"
+require 'sinatra_warden'
 
 set :database, "sqlite3:///blog.db"
+
+class Application < Sinatra::Base
+	register Sinatra::Warden
+
+	get '/admin' do
+		authorize!('/login') # require session, redirect to login if not authorized
+		haml :admin
+	end	
+
+	get 'dashboard' do
+		authorize! # require session, redirect to login if not authorized
+		haml :dashboard
+	end
+end		 
+
+
+
+
 
 # Models and Their Definitions
 class Post < ActiveRecord::Base
@@ -10,7 +29,13 @@ end
 class Page < ActiveRecord::Base
 end	
 
+			
 # Routes
+get "/posts" do
+	@posts = Post.order("created_at DESC")
+	erb :"posts/index"
+end	
+
 get "/" do
 	@posts = Post.order("created_at DESC")
 	erb :"posts/index"
@@ -51,7 +76,12 @@ delete "posts/:id" do
 	redirect "/"
 end
 
-# Pages 
+
+# Pages
+get "/pages" do
+	@pages = Page.order("created_at DESC")
+	erb :"pages/index"
+end	 
 get "/pages/new" do
 	@title = "New Page"
 	@page  = Page.new
@@ -62,11 +92,11 @@ get "/pages/:id" do
 	erb :"pages/show"
 end	
 post "/pages" do
-	@post = page.new(params[:page])
+	@page = Page.new(params[:page])
 	if @page.save
-		redirect "posts/#{@post.id}"
+		redirect "pages/#{@page.id}"
 	else
-		erb :"posts/new"
+		erb :"pages/new"
 	end
 end
 get "/pages/:id/edit" do
@@ -74,7 +104,7 @@ get "/pages/:id/edit" do
 	@title = "Edit Page"
 	erb :"pages/edit"
 end
-put "/posts/:id/edit" do
+put "/pages/:id/edit" do
 	@page = Page.find(params[:id])
 	if @page.update_attributes(params[:page])
 		redirect "/page/#{@page.id}"

@@ -2,9 +2,11 @@
 source :rubygems
 
 gem "sinatra"
+gem "sinatra-flash", require: 'sinatra/flash'
 gem "sqlite3"
 gem "activerecord"
 gem "sinatra-activerecord"
+gem 'sinatra_warden'
 
 group :development do
 	gem "shotgun"
