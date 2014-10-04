@@ -1,0 +1,10 @@
+<h1>Pages</h1>
+<% if @pages.any? %>
+<ul>
+    <% @pages.each do |page| %>
+	<li><strong><%= page.title %></strong></li>
+	<% end %>
+<% else %>
+	<p> No pages created </p>
+</ul>
+<% end %>		
