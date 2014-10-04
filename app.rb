@@ -16,7 +16,11 @@ user Warden::Manager do |config|
 	# configuring strategies
 	config.scope_defaults :default,
 		strategies: [:password],
-			 
+		action: 	'auth/unathenticated'
+	config.failure_app = self
+end
+
+Warden::Strategies.add(:)		 	 
 
 
 
