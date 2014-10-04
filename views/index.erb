@@ -2,7 +2,7 @@
 <% if @pages.any? %>
 <ul>
     <% @pages.each do |page| %>
-	<li><strong><%= page.title %></strong></li>
+	<li><a href="/pages/#{page.id}"><strong><%= page.title %></strong></a></li>
 	<% end %>
 <% else %>
 	<p> No pages created </p>

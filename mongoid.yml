@@ -1,14 +1,10 @@
 development:
-  sessions:
-    default:
-      database: cms
-        hosts:
-          - localhost:27017
+  host: localhost
+  database: cms
 
 production:
-  sessions:
-    default:
-      uri: <%= ENV['MONGOHQ<em>URL'] %>
-        options:
-          skip_version_check: true
-            safe: true
+  host: prod_host
+  port: 1000
+  username: main
+  password: secret
+  database: cms_prod  
