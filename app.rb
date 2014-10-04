@@ -7,23 +7,24 @@ set :database, "sqlite3:///blog.db"
 class Post < ActiveRecord::Base
 end
 
+class Page < ActiveRecord::Base
+end	
+
 # Routes
 get "/" do
 	@posts = Post.order("created_at DESC")
 	erb :"posts/index"
 end
-
+# Posts
 get "/posts/new" do
 	@title = "New Post"
 	@post  = Post.new
 	erb :"posts/new"
 end
-
 get "/posts/:id" do
 	@post = Post.find(params[:id])
 	erb :"posts/show"
 end	
-
 post "/posts" do
 	@post = Post.new(params[:post])
 	if @post.save
@@ -32,13 +33,11 @@ post "/posts" do
 		erb :"posts/new"
 	end
 end
-
 get "/posts/:id/edit" do
 	@post = Post.find(params[:id])
-	@title = "Edit Form"
+	@title = "Edit Post"
 	erb :"posts/edit"
 end
-
 put "/posts/:id/edit" do
 	@post = Post.find(params[:id])
 	if @post.update_attributes(params[:post])
@@ -47,15 +46,45 @@ put "/posts/:id/edit" do
 		erb :"posts/edit"
 	end
 end
-
 delete "posts/:id" do
 	@post = Post.find(params[:id]).destroy
 	redirect "/"
 end
 
-get "/about" do
-	@title = "About Me"
-	erb :"pages/about"
+# Pages 
+get "/pages/new" do
+	@title = "New Page"
+	@page  = Page.new
+	erb :"pages/new"
+end
+get "/pages/:id" do
+	@page = Page.find(params[:id])
+	erb :"pages/show"
+end	
+post "/pages" do
+	@post = page.new(params[:page])
+	if @page.save
+		redirect "posts/#{@post.id}"
+	else
+		erb :"posts/new"
+	end
+end
+get "/pages/:id/edit" do
+	@pages = Page.find(params[:id])
+	@title = "Edit Page"
+	erb :"pages/edit"
+end
+put "/posts/:id/edit" do
+	@page = Page.find(params[:id])
+	if @page.update_attributes(params[:page])
+		redirect "/page/#{@page.id}"
+	else
+		erb :"page/edit"
+	end
+end
+delete "pages/:id" do
+	@page = Page.find(params[:id]).destroy
+	redirect "/"
 end
 
 

@@ -1,0 +1,14 @@
+<h1>Edit Page</h1>
+<form action="/pages/<%= @page.id %>" method="post">
+  <input type="hidden" name="_method" value="put" /> 
+ 
+  <label for="page_title">Title:</label><br />
+  <input id="page_title" name="page[title]" type="text" value="<%= @page.title %>" />
+  <br />
+ 
+  <label for="page_body">Body:</label><br />
+  <textarea id="page_body" name="post[body]" rows="5"><%= @post.body %></textarea>
+  <br />
+ 
+  <input type="submit" value="Edit Post" />
+</form>
