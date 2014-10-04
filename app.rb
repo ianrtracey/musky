@@ -1,4 +1,5 @@
 require "sinatra"
+require "sinatra/activerecord"
 require 'warden'
 
 set :database, "sqlite3:///blog.db"
@@ -10,8 +11,6 @@ end
 
 class Page < ActiveRecord::Base
 end	
-
-
 
 			
 # Routes
