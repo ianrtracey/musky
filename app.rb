@@ -72,8 +72,13 @@ class Post < ActiveRecord::Base
 end
 
 class Page < ActiveRecord::Base
-end	
+end
 
+class Type < ActiveRecord::Base
+end
+
+class View < ActiveRecord::Base	
+end
 
 
 			
