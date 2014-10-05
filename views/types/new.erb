@@ -1,0 +1,15 @@
+<h1>Create a new Post Type</h1>
+<form action="/types" method="post">
+	<label for="type_data_type">Title:</label><br />
+	<select id="type_data_type" name="type[data_type]" type="text" value="<%= @page.title %>">
+	<option>Integer</option>
+	<option>Paragraph</option>
+	
+	</select>
+
+	<label for="page_body">Body:</label><br />
+    <textarea id="page_body" name="page[body]" rows="5"><%= @page.body %></textarea>
+    <br />
+ 
+    <input type="submit" value="Create Type" />
+</form>

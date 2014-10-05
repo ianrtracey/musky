@@ -3,8 +3,7 @@ class Types < ActiveRecord::Migration
  # Decimal
  # Single-line
  # Paragraph
- # Image
- # 
+ # Image 
 
 
   def up

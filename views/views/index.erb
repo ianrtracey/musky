@@ -1,0 +1,9 @@
+<h1>Showing all post views</h1>
+<% @views.each do |views| %>
+	<li>
+		<h2><a href="/posts/<%= post.id %>"><%= view.data_type %></a>
+		<span><%= pretty_date(post.created_at) %></span>
+		</h2>
+	</li>
+<% end %>
+</ul>	

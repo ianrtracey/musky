@@ -1,0 +1,9 @@
+<h1>Showing all Post Types</h1>
+<% @posts.each do |post| %>
+	<li>
+		<h2><a href="/posts/<%= post.id %>"><%= post.title %></a>
+		<span><%= pretty_date(post.created_at) %></span>
+		</h2>
+	</li>
+<% end %>
+</ul>	
